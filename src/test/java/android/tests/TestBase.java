@@ -30,6 +30,10 @@ public class TestBase {
     void beforeEach() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         open();
+
+        if ("ios".equals(System.getProperty("platform"))) {
+            System.out.println("Запуск тестов на платформе ios не реализован, тесты будут запущены на android");
+        }
     }
 
     @AfterEach

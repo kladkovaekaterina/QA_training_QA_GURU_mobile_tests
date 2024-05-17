@@ -2,27 +2,33 @@ package android.tests;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import pages.WikiAppPage;
+import pages.WikiAppArticlePage;
+import pages.WikiAppMainPage;
+import pages.WikiAppSearchPage;
+import pages.WikiAppSearchResultPage;
 
 public class WikiSearchWithSelenideTest extends TestBase {
 
-    WikiAppPage wikiAppPage = new WikiAppPage();
+    WikiAppMainPage wikiAppMainPage = new WikiAppMainPage();
+    WikiAppSearchPage wikiAppSearchPage = new WikiAppSearchPage();
+    WikiAppSearchResultPage wikiAppSearchResultPage = new WikiAppSearchResultPage();
+    WikiAppArticlePage wikiAppArticlePage = new WikiAppArticlePage();
 
     @Test
     @DisplayName("Проверка успешного поиска в приложении")
     void successfulSearchTest() {
-        wikiAppPage.openSearchQueryString()
-                   .setSearchQuery("Appium")
-                   .checkResultPos();
+        wikiAppMainPage.openSearchQueryString();
+        wikiAppSearchPage.setSearchQuery("Appium");
+        wikiAppSearchResultPage.checkResultPos();
     }
 
     @Test
     @DisplayName("Проверка неуспешного открытия статьи в приложении")
     //статья не открывается - нормальное поведение стандартного приложения bs
     void openArticleTest() {
-        wikiAppPage.openSearchQueryString()
-                   .setSearchQuery("Java")
-                   .openSearchedArticle("Java (programming language)")
-                   .checkPageDidntOpenWithText("Object-oriented programming language");
+        wikiAppMainPage.openSearchQueryString();
+        wikiAppSearchPage.setSearchQuery("Java");
+        wikiAppSearchResultPage.openSearchedArticle("Java (programming language)");
+        wikiAppArticlePage.checkPageDidntOpenWithText("Object-oriented programming language");
     }
 }

@@ -8,7 +8,8 @@ def restAssuredVersion = "5.4.0",
         allureVersion = "2.25.0",
         selenideVersion = "6.13.0",
         appiumVersion = "8.3.0",
-        ownerVersion = "1.0.12"
+        ownerVersion = "1.0.12",
+        commonsVersion = "2.11.0"
 
 allure {
     report {
@@ -34,6 +35,7 @@ dependencies {
             "org.junit.jupiter:junit-jupiter:$junit5Version",
             "io.rest-assured:rest-assured:$restAssuredVersion",
             "io.appium:java-client:$appiumVersion",
+            "commons-io:commons-io:$commonsVersion",
             "org.aeonbits.owner:owner:$ownerVersion",
             "io.rest-assured:json-schema-validator:$restAssuredVersion",
             "io.qameta.allure:allure-rest-assured:$allureVersion",
@@ -52,5 +54,17 @@ tasks.withType(Test) {
             events "started", "skipped", "failed", "standard_error", "standard_out"
             exceptionFormat "short"
         }
+    }
+}
+
+task wikiApp_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("wikiApp")
+    }
+}
+
+task wikiSampleApp_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("wikiSampleApp")
     }
 }
